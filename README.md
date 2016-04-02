@@ -2,7 +2,7 @@
 
 alltext is a command-line tool to debug strings. It is a friendlier version of `cat -ve`. Author uses it to learn how other command-line tools work: bash, vim, echo etc.
 
-Like cat, alltext reads its input from stdin so it is to be used via pipes: like `tail -f file | alltext` or `echo -e string | alltext`.
+Like cat, alltext reads its input from stdin so it is to be used via pipes: like `tail -f file | alltext` or `pbpasteboard | alltext`.
 
 cat:
 
