@@ -22,6 +22,8 @@ $
 
 ### Installation
 
+Currently alltext is available on Mac OS X but it should be easy to enable some other types of distribution supported by Rust/Cargo.
+
 The one-file tar with alltext binary can be found on [Releases](https://github.com/stanislaw/alltext/releases) page.
 
 ### TODO
