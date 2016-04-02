@@ -1,0 +1,14 @@
+[package]
+
+name = "alltext"
+version = "0.0.1"
+authors = [ "Stanislav Pankevich <s.pankevich@gmail.com>" ]
+
+[[bin]]
+name = "alltext"
+path = "src/alltext.rs"
+test = false
+
+[dev-dependencies]
+# tempdir = "*"
+
