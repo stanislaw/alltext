@@ -37,35 +37,3 @@ fn main() {
     }
 }
 
-/*
-    //let mut input_raw = Vec::new();
-let mut buffer = String::new();
-
-while stdin.read_line(&mut buffer).unwrap() > 0 {
-// work with buffer
-println!("{:?}", buffer);
-
-//stdin.lock().read_to_end(&mut input_raw);
-//let input = str::from_utf8(&input_raw).unwrap();
-
-for c in buffer.chars() {
-
-// http://www.asciitable.com/
-let pp: String = match c {
-'\x00' => String::from("NUL"),
-'\x0A' => String::from("LF"),
-'\x0D' => String::from("CR"),
-'\x1b' => String::from("ESC"),
-'\x20' => String::from("Space"),
-_ => c.to_string(),
-};
-
-output.push_str(&pp);
-output.push(' ');
-}
-
-output.pop();
-
-println!("{}", output);
-buffer.clear();
-*/

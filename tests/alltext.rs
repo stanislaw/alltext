@@ -11,9 +11,9 @@ fn run_alltext(input: &str) -> String {
 
     let ALLTEXT_EXEC;
     if let Ok(value) = std::env::var("ALLTEXT_EXEC") {
-    ALLTEXT_EXEC = current_dir.join(value);
+        ALLTEXT_EXEC = current_dir.join(value);
     } else {
-    panic!("Didn't get executable to run");
+        panic!("Didn't get executable to run");
     }
 
     //println!("{}", ALLTEXT_EXEC.display());
@@ -23,11 +23,11 @@ fn run_alltext(input: &str) -> String {
     //println!("{}", test_command);
 
     let process = Command::new(test_command).stdin(Stdio::piped()).stdout(Stdio::piped()).spawn().unwrap_or_else(|e| {
-    panic!("failed to execute process: {}", e)
+        panic!("failed to execute process: {}", e)
     });
 
     process.stdin.unwrap().write(input.as_bytes()).unwrap_or_else(|e| {
-    panic!("error: {}", e)
+         panic!("error: {}", e)
     });
 
     let mut output = String::new();
@@ -87,12 +87,12 @@ fn it_echoes_13_as_CR() {
 }
 
 #[test]
-fn it_echoes_3_as_BLA() {
-let input = "\x03\x03\x03";
-let expected_output = "3 3 3\n";
+	fn it_echoes_3_as_digit_3() {
+	let input = "\x03\x03\x03";
+	let expected_output = "3 3 3\n";
 
-let output = run_alltext(input);
+	let output = run_alltext(input);
 
-assert_eq!(output, expected_output);
+	assert_eq!(output, expected_output);
 }
 
