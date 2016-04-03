@@ -1,22 +1,34 @@
 use std::env;
 use std::io;
 use std::io::prelude::*;
+use std::process;
 use std::str;
 
 fn main() {
     let mut args = env::args();
     args.next(); // skipping arg[0]
 
-    let null_delimiter: bool;
+    let mut show_help = false;
+    let mut null_delimiter = false;
 
-    if let Some(x) = args.next() {
-        if x == "--null" {
-            null_delimiter = true;
-        } else {
-            null_delimiter = false;
+    if let Some(arg) = args.next() {
+        match arg.as_ref() {
+            "--null" => {
+                null_delimiter = true
+            },
+            "--help" => {
+                show_help = true
+            }
+            _        => {
+                println!("unknown argument"); process::exit(1);
+            }
         }
-    } else {
-        null_delimiter = false;
+    }
+
+    if show_help {
+        println!("{}", ALLTEXT_HELP);
+
+        process::exit(0);
     }
 
     let delimiter: u8;
@@ -75,3 +87,10 @@ fn main() {
     }
 }
 
+static ALLTEXT_HELP: &'static str = "\
+alltext - full information about string (including non-printable characters)
+options:
+  --null use NUL (\\0) as line delimiter instead of default LF (\\n)
+example:
+  printf \"Hello world.\\r\\n\" | alltext\
+";
