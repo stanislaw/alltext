@@ -20,7 +20,7 @@ clean:
 	rm -rf ./target
 	rm -rf $(ALLTEXT_DISTRIBUTION_PATH)
 
-archive:
+archive: test
 	rm -rf $(ALLTEXT_DISTRIBUTION_PATH)
 	mkdir -p $(ALLTEXT_BINARY_DISTRIBUTION_PATH)
 

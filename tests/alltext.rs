@@ -151,7 +151,7 @@ fn when_help_parameter_it_prints_help() {
     let mut output = String::new();
     process.stdout.unwrap().read_to_string(&mut output).unwrap();
 
-    assert!(output.contains("alltext - full information about string (including non-printable characters)"));
+    assert!(output.contains("alltext - information about text input (including non-printable characters)"));
 }
 
 // --version parameter
