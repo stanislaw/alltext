@@ -11,7 +11,7 @@ build:
 	cargo build --release --target=x86_64-apple-darwin
 
 run: build
-	echo "Hello world!" | $(ALLTEXT_BINARY)
+	printf "Hello world!" | $(ALLTEXT_BINARY)
 
 test: build
 	ALLTEXT_EXEC=$(ALLTEXT_BINARY) cargo test -- --nocapture
