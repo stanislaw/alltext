@@ -26,9 +26,21 @@ Currently alltext is available on Mac OS X but it should be easy to enable some 
 
 The one-file tar with alltext binary can be found on [Releases](https://github.com/stanislaw/alltext/releases) page.
 
-### Options
+### Synopsis
 
-- `--null` Switch to use of NUL (\0) as line delimiter instead of default LF (\n). Can be useful when you are particularly interested in listeting to \n and \r\n characters from the the input you have control of.
+```
+$ alltext --help
+alltext - information about text input (including non-printable characters)
+
+options:
+  --null     use NUL (\0) as line delimiter instead of default LF (\n)
+  --version  print version
+
+example:
+  printf "Hello world.\r\n" | alltext
+```
+
+`--null` option can be useful when you are particularly interested in listeting to \n and \r\n characters from the the input. If you have control over your input you can replace \n with \0 and that will make it easier for you to see \n and \r\n unaffected by line breaks.
 
 ### TODO
 
