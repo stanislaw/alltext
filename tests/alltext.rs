@@ -1,12 +1,10 @@
-// Make-related variables are capitalized:
-
 #![allow(non_snake_case)]
 
 use std::process::{Command, Stdio};
 use std::env;
 use std::io::prelude::*;
 
-fn run_alltext(input: &str) -> String {
+fn run_alltext(input: &str, args: Vec<&str>) -> String {
     let current_dir = env::current_dir().unwrap();
 
     let ALLTEXT_EXEC;
@@ -22,7 +20,7 @@ fn run_alltext(input: &str) -> String {
 
     //println!("{}", test_command);
 
-    let process = Command::new(test_command).stdin(Stdio::piped()).stdout(Stdio::piped()).spawn().unwrap_or_else(|e| {
+    let process = Command::new(test_command).args(&args).stdin(Stdio::piped()).stdout(Stdio::piped()).spawn().unwrap_or_else(|e| {
         panic!("failed to execute process: {}", e)
     });
 
@@ -36,12 +34,14 @@ fn run_alltext(input: &str) -> String {
     return output
 }
 
+
 #[test]
 fn it_echoes_string_back_with_spaces() {
     let input = "Hello!";
     let expected_output = "H e l l o !\n";
 
-    let output = run_alltext(input);
+    let args: Vec<&str> = vec![];
+    let output = run_alltext(input, args);
 
     assert_eq!(output, expected_output);
 }
@@ -51,7 +51,8 @@ fn it_echoes_spaces_printed_as_Space() {
     let input = "A B C";
     let expected_output = "A Space B Space C\n";
 
-    let output = run_alltext(input);
+    let args: Vec<&str> = vec![];
+    let output = run_alltext(input, args);
 
     assert_eq!(output, expected_output);
 }
@@ -61,17 +62,20 @@ fn it_echoes_escape_as_ESC() {
     let input = "\x1b\x1b\x1b";
     let expected_output = "ESC ESC ESC\n";
 
-    let output = run_alltext(input);
+    let args: Vec<&str> = vec![];
+    let output = run_alltext(input, args);
 
     assert_eq!(output, expected_output);
 }
 
 #[test]
+// Special case, because LF is default delimiter
 fn it_echoes_10_as_LF() {
     let input = "\x0a\x0a\x0a";
     let expected_output = "LF\nLF\nLF\n";
 
-    let output = run_alltext(input);
+    let args: Vec<&str> = vec![];
+    let output = run_alltext(input, args);
 
     assert_eq!(output, expected_output);
 }
@@ -81,7 +85,8 @@ fn it_echoes_13_as_CR() {
     let input = "\x0d\x0d\x0d";
     let expected_output = "CR CR CR\n";
 
-    let output = run_alltext(input);
+    let args: Vec<&str> = vec![];
+    let output = run_alltext(input, args);
 
     assert_eq!(output, expected_output);
 }
@@ -91,8 +96,32 @@ fn it_echoes_13_as_CR() {
 	let input = "\x03\x03\x03";
 	let expected_output = "3 3 3\n";
 
-	let output = run_alltext(input);
+    let args: Vec<&str> = vec![];
+    let output = run_alltext(input, args);
 
 	assert_eq!(output, expected_output);
 }
 
+// --null parameter tests
+
+#[test]
+fn when_null_parameter_it_echoes_10_as_LF() {
+    let input = "\x0a\x0a\x0a\0";
+    let expected_output = "LF LF LF\n";
+
+    let args: Vec<&str> = vec!["--null"];
+    let output = run_alltext(input, args);
+
+    assert_eq!(output, expected_output);
+}
+
+#[test]
+fn when_null_parameter_it_echoes_10_as_LF_and_does_not_cut_symbols() {
+    let input = "\x0a\x0a\x0a";
+    let expected_output = "LF LF LF\n";
+
+    let args: Vec<&str> = vec!["--null"];
+    let output = run_alltext(input, args);
+
+    assert_eq!(output, expected_output);
+}
