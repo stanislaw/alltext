@@ -26,6 +26,10 @@ Currently alltext is available on Mac OS X but it should be easy to enable some 
 
 The one-file tar with alltext binary can be found on [Releases](https://github.com/stanislaw/alltext/releases) page.
 
+### Options
+
+- `--null` Switch to use of NUL (\0) as line delimiter instead of default LF (\n). Can be useful when you are particularly interested in listeting to \n and \r\n characters from the the input you have control of.
+
 ### TODO
 
 - Optional parameter to print string lengths (example: `A A A (3)`)
