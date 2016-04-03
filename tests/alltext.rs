@@ -1,9 +1,10 @@
 #![allow(non_snake_case)]
 
+const ALLTEXT_VERSION: &'static str = env!("CARGO_PKG_VERSION");
+
 use std::process::{Command, Stdio};
 use std::env;
 use std::io::prelude::*;
-use std::io;
 
 fn run_alltext(input: &str, args: Vec<&str>) -> String {
     let current_dir = env::current_dir().unwrap();
@@ -127,7 +128,7 @@ fn when_null_parameter_it_echoes_10_as_LF_and_does_not_cut_symbols() {
     assert_eq!(output, expected_output);
 }
 
-// --null parameter tests
+// --help parameter
 
 #[test]
 fn when_help_parameter_it_prints_help() {
@@ -151,4 +152,31 @@ fn when_help_parameter_it_prints_help() {
     process.stdout.unwrap().read_to_string(&mut output).unwrap();
 
     assert!(output.contains("alltext - full information about string (including non-printable characters)"));
+}
+
+// --version parameter
+
+#[test]
+fn when_help_parameter_it_prints_version() {
+    let args: Vec<&str> = vec!["--version"];
+    let current_dir = env::current_dir().unwrap();
+
+    let ALLTEXT_EXEC;
+    if let Ok(value) = std::env::var("ALLTEXT_EXEC") {
+    ALLTEXT_EXEC = current_dir.join(value);
+    } else {
+    panic!("Didn't get executable to run");
+    }
+
+    let test_command = format!("{}", ALLTEXT_EXEC.display());
+
+    let process = Command::new(test_command).args(&args).stdout(Stdio::piped()).spawn().unwrap_or_else(|e| {
+    panic!("failed to execute process: {}", e)
+    });
+
+    let mut output = String::new();
+    process.stdout.unwrap().read_to_string(&mut output).unwrap();
+
+    let expected_output = format!("alltext {}", ALLTEXT_VERSION);
+    assert!(output.contains(&expected_output));
 }

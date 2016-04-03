@@ -4,6 +4,8 @@ use std::io::prelude::*;
 use std::process;
 use std::str;
 
+const ALLTEXT_VERSION: &'static str = env!("CARGO_PKG_VERSION");
+
 fn main() {
     let mut args = env::args();
     args.next(); // skipping arg[0]
@@ -18,9 +20,14 @@ fn main() {
             },
             "--help" => {
                 show_help = true
-            }
+            },
+            "--version" => {
+                println!("alltext {}", ALLTEXT_VERSION);
+                process::exit(0);
+            },
             _        => {
-                println!("unknown argument"); process::exit(1);
+                println!("unknown argument");
+                process::exit(1);
             }
         }
     }
