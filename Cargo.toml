@@ -1,7 +1,7 @@
 [package]
 
 name = "alltext"
-version = "0.0.2"
+version = "0.0.3"
 authors = [ "Stanislav Pankevich <s.pankevich@gmail.com>" ]
 
 [[bin]]
