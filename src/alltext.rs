@@ -1,6 +1,3 @@
-// static ALLTEXT_VERSION: &'static str = "0.0.1";
-// static ALLTEXT_DATE:    &'static str = "2016-04-02";
-
 use std::env;
 use std::io;
 use std::io::prelude::*;
