@@ -95,9 +95,12 @@ fn main() {
 }
 
 static ALLTEXT_HELP: &'static str = "\
-alltext - full information about string (including non-printable characters)
+alltext - information about text input (including non-printable characters)
+
 options:
-  --null use NUL (\\0) as line delimiter instead of default LF (\\n)
+  --null     use NUL (\\0) as line delimiter instead of default LF (\\n)
+  --version  print version
+
 example:
   printf \"Hello world.\\r\\n\" | alltext\
 ";
