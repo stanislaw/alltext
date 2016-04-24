@@ -68,7 +68,7 @@ fn main() {
         }
 
         {
-            let buffer = str::from_utf8(&input_raw).unwrap();
+            let buffer = String::from_utf8_lossy(&input_raw);
 
             for c in buffer.chars() {
                 let pp: String = match c {
