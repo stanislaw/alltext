@@ -2,7 +2,6 @@ use std::env;
 use std::io;
 use std::io::prelude::*;
 use std::process;
-use std::str;
 
 const ALLTEXT_VERSION: &'static str = env!("CARGO_PKG_VERSION");
 
