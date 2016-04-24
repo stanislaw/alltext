@@ -5,6 +5,7 @@ const ALLTEXT_VERSION: &'static str = env!("CARGO_PKG_VERSION");
 use std::process::{Command, Stdio};
 use std::env;
 use std::io::prelude::*;
+use std::str;
 
 fn run_alltext(input: &str, args: Vec<&str>) -> String {
     let current_dir = env::current_dir().unwrap();
@@ -94,7 +95,7 @@ fn it_echoes_13_as_CR() {
 }
 
 #[test]
-	fn it_echoes_3_as_digit_3() {
+fn it_echoes_3_as_digit_3() {
 	let input = "\x03\x03\x03";
 	let expected_output = "3 3 3\n";
 
@@ -102,6 +103,21 @@ fn it_echoes_13_as_CR() {
     let output = run_alltext(input, args);
 
 	assert_eq!(output, expected_output);
+}
+
+#[test]
+fn when_broken_utf8_symbol_it_echoes_replacement_character() {
+    let bytes: [u8; 2] = [0xc2, 0xa];
+
+    unsafe {
+        let input = str::from_utf8_unchecked(&bytes);
+        let expected_output = "� LF\n";
+
+        let args: Vec<&str> = vec!["--null"];
+        let output = run_alltext(input, args);
+
+        assert_eq!(output, expected_output);
+    }
 }
 
 // --null parameter tests
@@ -180,3 +196,4 @@ fn when_help_parameter_it_prints_version() {
     let expected_output = format!("alltext {}", ALLTEXT_VERSION);
     assert!(output.contains(&expected_output));
 }
+
